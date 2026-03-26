@@ -21,7 +21,7 @@
             <span class="nav-text">Transactions</span>
         </a>
 
-        <a href="#" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+        <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
             <i class="fas fa-tag nav-icon"></i>
             <span class="nav-text">Categories</span>
         </a>

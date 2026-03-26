@@ -56,4 +56,16 @@ window.addEventListener("resize", () => {
 });
 
 console.log("[KharchaTrack] Dashboard initialized");
-s
+
+// ===== COLOR PICKER =====
+const colorInput = document.getElementById("color");
+const colorSample = document.getElementById("colorSample");
+const colorValue = document.getElementById("colorValue");
+
+if (colorInput) {
+    colorInput.addEventListener("input", (e) => {
+        const color = e.target.value;
+        if (colorSample) colorSample.style.backgroundColor = color;
+        if (colorValue) colorValue.textContent = color.toUpperCase();
+    });
+}

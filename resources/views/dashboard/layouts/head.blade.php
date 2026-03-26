@@ -10,10 +10,7 @@
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- Vite compiled CSS -->
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-
-<!-- Your Custom CSS -->
+<!-- Custom CSS -->
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 @stack('styles')
