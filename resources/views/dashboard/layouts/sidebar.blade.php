@@ -16,12 +16,14 @@
             <span class="nav-text">Dashboard</span>
         </a>
 
-        <a href="#" class="nav-link {{ request()->routeIs('transactions.*') ? 'active' : '' }}">
+        <a href="{{ route('transactions.index') }}"
+            class="nav-link {{ request()->routeIs('transactions.*') ? 'active' : '' }}">
             <i class="fas fa-arrow-right-arrow-left nav-icon"></i>
             <span class="nav-text">Transactions</span>
         </a>
 
-        <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+        <a href="{{ route('categories.index') }}"
+            class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
             <i class="fas fa-tag nav-icon"></i>
             <span class="nav-text">Categories</span>
         </a>
@@ -35,7 +37,7 @@
             <i class="fas fa-download nav-icon"></i>
             <span class="nav-text">Export</span>
         </a>
-        
+
         {{-- Admin Panel link will be enabled in Module 8 after Spatie setup --}}
         {{-- <a href="#" class="nav-link">
             <i class="fas fa-shield nav-icon"></i>

@@ -69,3 +69,47 @@ if (colorInput) {
         if (colorValue) colorValue.textContent = color.toUpperCase();
     });
 }
+
+// ===== TRANSACTION TYPE TOGGLE =====
+function selectType(type) {
+    const incomeBtn = document.getElementById("incomeBtnDisplay");
+    const expenseBtn = document.getElementById("expenseBtnDisplay");
+
+    if (incomeBtn && expenseBtn) {
+        incomeBtn.classList.remove("active");
+        expenseBtn.classList.remove("active");
+
+        if (type === "income") {
+            incomeBtn.classList.add("active");
+        } else {
+            expenseBtn.classList.add("active");
+        }
+    }
+}
+
+// ===== EDIT TRANSACTION PAGE =====
+// Handles type toggle radio buttons for edit page
+// selectType function already handles income/expense toggle
+
+// Initialize edit page with correct type button state
+document.addEventListener("DOMContentLoaded", function () {
+    const typeIncome = document.getElementById("typeIncome");
+    const typeExpense = document.getElementById("typeExpense");
+
+    if (typeIncome && typeExpense) {
+        // Set initial active state based on checked radio
+        if (typeExpense.checked) {
+            document
+                .getElementById("expenseBtnDisplay")
+                .classList.add("active");
+            document
+                .getElementById("incomeBtnDisplay")
+                .classList.remove("active");
+        } else {
+            document.getElementById("incomeBtnDisplay").classList.add("active");
+            document
+                .getElementById("expenseBtnDisplay")
+                .classList.remove("active");
+        }
+    }
+});

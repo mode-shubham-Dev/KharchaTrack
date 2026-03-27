@@ -1124,3 +1124,338 @@ th:nth-child(4), td:nth-child(4) { width: 130px; }
         gap: 16px;
     }
 }
+
+/* ===== TRANSACTIONS PAGE ===== */
+.summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.summary-item {
+    padding: 1.5rem;
+    border-radius: 12px;
+    color: white;
+}
+
+.summary-item.income {
+    background-color: #22c55e;
+}
+
+.summary-item.expense {
+    background-color: #ef4444;
+}
+
+.summary-item.balance {
+    background-color: #6366f1;
+}
+
+.summary-item-label {
+    font-size: 13px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.summary-item-value {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* ===== FILTERS ===== */
+.filters form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 9px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    background-color: white;
+    color: #1e293b;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.filter-group input[type="search"] {
+    min-width: 200px;
+}
+
+/* ===== CARD ===== */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    margin-bottom: 24px;
+}
+
+/* ===== TABLE ===== */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.category-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background-color: #f1f5f9;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.category-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.type-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.type-badge.income {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.type-badge.expense {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.amount {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.amount.income {
+    color: #22c55e;
+}
+
+.amount.expense {
+    color: #ef4444;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    color: #6366f1;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 6px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.btn-icon:hover {
+    color: #4f46e5;
+    transform: scale(1.1);
+}
+
+.btn-icon.delete {
+    color: #ef4444;
+}
+
+.btn-icon.delete:hover {
+    color: #dc2626;
+}
+
+/* ===== PAGINATION ===== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination nav {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.pagination span,
+.pagination a {
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #1e293b;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.pagination a:hover {
+    border-color: #6366f1;
+    color: #6366f1;
+    background-color: #f1f5f9;
+}
+
+/* ===== TRANSACTION FORM ===== */
+/* ===== TRANSACTION TYPE TOGGLE ===== */
+.type-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.type-btn {
+    padding: 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    color: #64748b;
+    user-select: none;
+}
+
+.type-btn:hover {
+    border-color: #cbd5e1;
+}
+
+.type-btn.income.active {
+    border-color: #22c55e !important;
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+}
+
+.type-btn.expense.active {
+    border-color: #ef4444 !important;
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+}
+
+.amount-input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.amount-input-group:focus-within {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.amount-prefix {
+    padding: 12px 14px;
+    background-color: #f1f5f9;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 14px;
+    border-right: 1px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+.amount-input-group input {
+    border: none;
+    outline: none;
+    padding: 12px;
+    font-size: 14px;
+    width: 100%;
+    font-family: inherit;
+    color: #1e293b;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+    transition: all 0.2s ease;
+    color: #1e293b;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #6366f1;
+    border: 1px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #f1f5f9;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .filters form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group select,
+    .filter-group input {
+        width: 100%;
+    }
+
+    .type-toggle {
+        grid-template-columns: 1fr 1fr;
+    }
+}
