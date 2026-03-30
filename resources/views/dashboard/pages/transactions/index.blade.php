@@ -19,19 +19,19 @@
             <div class="summary-item income">
                 <div class="summary-item-label">Total Income (This Month)</div>
                 <div class="summary-item-value">
-                    NPR {{ number_format($totalIncome, 2) }}
+                    NPR {{ number_format($filteredIncome, 2) }}
                 </div>
             </div>
             <div class="summary-item expense">
                 <div class="summary-item-label">Total Expense (This Month)</div>
                 <div class="summary-item-value">
-                    NPR {{ number_format($totalExpense, 2) }}
+                    NPR {{ number_format($filteredExpense, 2) }}
                 </div>
             </div>
             <div class="summary-item balance">
                 <div class="summary-item-label">Net Balance</div>
                 <div class="summary-item-value">
-                    NPR {{ number_format($netBalance, 2) }}
+                    NPR {{ number_format($filteredBalance, 2) }}
                 </div>
             </div>
         </div>

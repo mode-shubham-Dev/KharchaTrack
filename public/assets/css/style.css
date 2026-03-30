@@ -1164,12 +1164,16 @@ th:nth-child(4), td:nth-child(4) { width: 130px; }
 }
 
 /* ===== FILTERS ===== */
+.filters {
+    margin-bottom: 20px;
+}
+
 .filters form {
     display: flex;
-    gap: 10px;
+    flex-direction: row;
     flex-wrap: wrap;
+    gap: 10px;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .filter-group {
@@ -1178,26 +1182,20 @@ th:nth-child(4), td:nth-child(4) { width: 130px; }
 }
 
 .filter-group select,
-.filter-group input {
-    padding: 9px 12px;
+.filter-group input[type="month"],
+.filter-group input[type="search"] {
+    padding: 8px 12px;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
     font-size: 13px;
     background-color: white;
     color: #1e293b;
     font-family: inherit;
-    transition: all 0.2s ease;
-}
-
-.filter-group select:focus,
-.filter-group input:focus {
-    outline: none;
-    border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    height: 38px;
 }
 
 .filter-group input[type="search"] {
-    min-width: 200px;
+    min-width: 180px;
 }
 
 /* ===== CARD ===== */
