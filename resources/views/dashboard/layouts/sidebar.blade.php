@@ -28,12 +28,12 @@
             <span class="nav-text">Categories</span>
         </a>
 
-        <a href="#" class="nav-link {{ request()->routeIs('history.*') ? 'active' : '' }}">
+        <a href="{{ route('transactions.index') }}" class="nav-link {{ request()->routeIs('transactions.*') ? 'active' : '' }}">
             <i class="fas fa-clock nav-icon"></i>
             <span class="nav-text">History</span>
         </a>
 
-        <a href="#" class="nav-link {{ request()->routeIs('export.*') ? 'active' : '' }}">
+        <a href="{{ route('export.index') }}" class="nav-link {{ request()->routeIs('export.*') ? 'active' : '' }}">
             <i class="fas fa-download nav-icon"></i>
             <span class="nav-text">Export</span>
         </a>

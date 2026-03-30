@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\ExportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -18,6 +19,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('categories', CategoryController::class);
 
     Route::resource('transactions', TransactionController::class);
+
+    Route::get('/export', [ExportController::class, 'index'])->name('export.index');
+
+    Route::post('/export/download', [ExportController::class, 'download'])->name('export.download');
 
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');

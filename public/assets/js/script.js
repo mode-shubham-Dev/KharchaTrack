@@ -113,3 +113,42 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
+
+// ===== EXPORT PAGE — QUICK SELECT BUTTONS =====
+function setDateRange(range) {
+    const fromDate = document.getElementById("date_from");
+    const toDate = document.getElementById("date_to");
+
+    if (!fromDate || !toDate) return;
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+
+    switch (range) {
+        case "this_month":
+            fromDate.value = formatDate(new Date(year, month, 1));
+            toDate.value = formatDate(new Date(year, month + 1, 0));
+            break;
+        case "last_month":
+            fromDate.value = formatDate(new Date(year, month - 1, 1));
+            toDate.value = formatDate(new Date(year, month, 0));
+            break;
+        case "last_3_months":
+            fromDate.value = formatDate(new Date(year, month - 2, 1));
+            toDate.value = formatDate(new Date(year, month + 1, 0));
+            break;
+        case "this_year":
+            fromDate.value = formatDate(new Date(year, 0, 1));
+            toDate.value = formatDate(new Date(year, 11, 31));
+            break;
+    }
+}
+
+function formatDate(date) {
+    // Formats date to YYYY-MM-DD for input[type=date]
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+}
