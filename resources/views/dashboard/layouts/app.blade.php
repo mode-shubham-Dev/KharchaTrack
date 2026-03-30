@@ -2,19 +2,18 @@
 <html lang="en">
 
 <head>
-    {{-- Pulls in head.blade.php --}}
     @include('dashboard.layouts.head')
 </head>
 
 <body>
 
-    {{-- Pulls in sidebar.blade.php --}}
+    {{-- Sidebar --}}
     @include('dashboard.layouts.sidebar')
 
-    {{-- Pulls in header.blade.php --}}
+    {{-- Header/Navbar --}}
     @include('dashboard.layouts.header')
 
-    {{-- Main Content Area --}}
+    {{-- Main Content --}}
     <main class="main-content">
 
         {{-- Flash Messages --}}
@@ -32,19 +31,25 @@
             </div>
         @endif
 
-        {{-- Every page dumps its content here --}}
+        {{-- Page Content --}}
         @yield('content')
 
     </main>
 
-    {{-- Pulls in footer.blade.php --}}
+    {{-- Footer --}}
     @include('dashboard.layouts.footer')
 
-    {{-- Custom JS --}}
+    <!-- Main JS -->
     <script src="{{ asset('assets/js/script.js') }}"></script>
 
-    {{-- Extra scripts for specific pages like charts --}}
+    <!-- Chart.js CDN — loaded on every page, lightweight -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Your custom chart code -->
+    <script src="{{ asset('assets/js/charts.js') }}"></script>
+
     @stack('scripts')
 
 </body>
+
 </html>
