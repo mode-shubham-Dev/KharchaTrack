@@ -56,3 +56,262 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# 💰 KharchaTrack
+
+> Smart Personal Finance Tracker for Nepal
+
+KharchaTrack is a full-stack web application built with Laravel 13 that helps users track their income and expenses, visualize spending patterns, and export financial data.
+
+---
+
+## 🖥️ Screenshots
+
+> Add screenshots here after deployment
+
+---
+
+## ⚡ Tech Stack
+
+| Technology        | Version |
+| ----------------- | ------- |
+| PHP               | 8.4     |
+| Laravel           | 13.x    |
+| MySQL             | 8.x     |
+| Spatie Permission | 6.x     |
+| Chart.js          | 4.x     |
+| Tailwind CSS      | Via CDN |
+| Font Awesome      | 6.x     |
+
+---
+
+## ✨ Features
+
+### 👤 Authentication
+
+- Custom login & register pages
+- Password reset via email
+- Auto assign roles on registration
+- Auto create default categories on registration
+
+### 📊 Dashboard
+
+- Monthly income & expense summary cards
+- Pie chart — spending by category
+- Bar chart — income vs expense last 6 months
+- Recent 5 transactions preview
+
+### 💸 Transactions
+
+- Add income & expense transactions
+- Edit & delete transactions
+- Filter by type, category, month
+- Search by note
+- Paginated transaction history
+- Soft deletes for data safety
+
+### 🗂️ Categories
+
+- Default categories auto-created on register
+- Create custom categories with color picker
+- Income & expense category types
+- Prevent deletion if category has transactions
+
+### 📤 Export
+
+- Export transactions as CSV
+- Filter by date range, type, category
+- Quick select — This Month, Last Month, Last 3 Months, This Year
+- Excel compatible UTF-8 CSV
+
+### 🛡️ Admin Panel
+
+- Platform-wide stats
+- View all users
+- Toggle user roles (Admin/User)
+- Activate/deactivate users
+- Inactive users automatically logged out
+
+---
+
+## 🚀 Setup Instructions
+
+### Requirements
+
+- PHP 8.2+
+- Composer 2.x
+- Node.js 18+
+- MySQL 8.x
+
+### Installation
+
+**1. Clone the repository:**
+
+```bash
+git clone https://github.com/YOUR_USERNAME/KharchaTrack.git
+cd KharchaTrack
+```
+
+**2. Install dependencies:**
+
+```bash
+composer install
+npm install
+```
+
+**3. Setup environment:**
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+**4. Configure database in `.env`:**
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=kharcha_track
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+**5. Run migrations:**
+
+```bash
+php artisan migrate
+```
+
+**6. Seed roles and admin user:**
+
+```bash
+php artisan db:seed --class=RoleSeeder
+```
+
+**7. Build assets:**
+
+```bash
+npm run build
+```
+
+**8. Start server:**
+
+```bash
+php artisan serve
+```
+
+Visit `http://localhost:8000` 🎉
+
+---
+
+## 👤 Demo Credentials
+
+### Admin Account
+
+```
+Email:    admin@kharchatrack.com
+Password: password123
+```
+
+### Regular User
+
+```
+Register a new account at /register
+Default categories created automatically
+```
+
+---
+
+## 📁 Project Structure
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Auth/
+│   │   └── Dashboard/
+│   │       ├── Admin/
+│   │       │   └── AdminController.php
+│   │       ├── CategoryController.php
+│   │       ├── DashboardController.php
+│   │       ├── ExportController.php
+│   │       └── TransactionController.php
+│   ├── Middleware/
+│   │   ├── AdminMiddleware.php
+│   │   └── CheckUserActive.php
+│   └── Requests/
+│       ├── Category/
+│       └── Transaction/
+├── Models/
+│   ├── Category.php
+│   ├── Transaction.php
+│   └── User.php
+database/
+├── migrations/
+└── seeders/
+    ├── CategorySeeder.php
+    └── RoleSeeder.php
+resources/
+└── views/
+    ├── auth/
+    ├── dashboard/
+    │   ├── layouts/
+    │   │   ├── app.blade.php
+    │   │   ├── head.blade.php
+    │   │   ├── header.blade.php
+    │   │   ├── sidebar.blade.php
+    │   │   └── footer.blade.php
+    │   └── pages/
+    │       ├── admin/
+    │       ├── categories/
+    │       ├── dashboard/
+    │       ├── export/
+    │       └── transactions/
+public/
+└── assets/
+    ├── css/
+    │   └── style.css
+    └── js/
+        ├── script.js
+        └── charts.js
+```
+
+---
+
+## 🔐 Roles & Permissions
+
+| Feature           | User | Admin |
+| ----------------- | ---- | ----- |
+| Dashboard         | ✅   | ✅    |
+| Transactions      | ✅   | ✅    |
+| Categories        | ✅   | ✅    |
+| Export CSV        | ✅   | ✅    |
+| Admin Panel       | ❌   | ✅    |
+| Toggle User Roles | ❌   | ✅    |
+| Deactivate Users  | ❌   | ✅    |
+
+---
+
+## 🌱 Future Improvements
+
+- REST API with Laravel Sanctum for mobile app
+- Budget limits with email notifications
+- Recurring transactions
+- Multi-currency support
+- Dark mode
+
+---
+
+## 👨‍💻 Developer
+
+**Shubham Karna**
+Junior Laravel Developer at Kumo Labs, Kathmandu
+
+- GitHub: [@mode-shubham-Dev](https://github.com/mode-shubham-Dev)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).

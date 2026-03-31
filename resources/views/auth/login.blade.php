@@ -1,60 +1,89 @@
 <x-guest-layout>
+
+    {{-- Error Message --}}
     @if(session('error'))
-        <div style="
-                    background-color: #fee2e2;
-                    color: #991b1b;
-                    padding: 12px 16px;
-                    border-radius: 8px;
-                    margin-bottom: 16px;
-                    font-size: 14px;
-                    border: 1px solid #fecaca;">
+        <div class="auth-error">
             <i class="fas fa-exclamation-circle"></i>
             {{ session('error') }}
         </div>
     @endif
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+
+    {{-- Status Message --}}
+    @if(session('status'))
+        <div class="auth-error" style="background:#dcfce7; color:#166534; border-color:#bbf7d0;">
+            <i class="fas fa-check-circle"></i>
+            {{ session('status') }}
+        </div>
+    @endif
+
+    {{-- Heading --}}
+    <h2 class="auth-heading">Welcome Back 👋</h2>
+    <p class="auth-subheading">Sign in to your KharchaTrack account</p>
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        {{-- Email --}}
+        <div class="auth-form-group">
+            <label for="email">Email</label>
+            <div class="auth-input-wrapper">
+                <i class="fas fa-envelope auth-input-icon"></i>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="you@example.com"
+                    autocomplete="email" autofocus>
+            </div>
+            @error('email')
+                <div class="auth-input-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        {{-- Password --}}
+        <div class="auth-form-group">
+            <label for="password">Password</label>
+            <div class="auth-input-wrapper">
+                <i class="fas fa-lock auth-input-icon"></i>
+                <input type="password" id="password" name="password" placeholder="••••••••"
+                    autocomplete="current-password">
+                <button type="button" class="auth-toggle-password">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            @error('password')
+                <div class="auth-input-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox"
-                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+        {{-- Remember Me + Forgot Password --}}
+        <div class="auth-form-row">
+            <div class="auth-checkbox-wrapper">
+                <input type="checkbox" id="remember_me" name="remember">
+                <label for="remember_me">Remember me</label>
+            </div>
+            @if(Route::has('password.request'))
+                <a href="{{ route('password.request') }}" class="auth-forgot-link">
+                    Forgot password?
                 </a>
             @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
         </div>
+
+        {{-- Submit --}}
+        <button type="submit" class="auth-btn">
+            <i class="fas fa-sign-in-alt"></i>
+            Sign In
+        </button>
+
+        <div class="auth-divider"><span>or</span></div>
+
+        <div class="auth-footer-text">
+            Don't have an account?
+            <a href="{{ route('register') }}">Create one</a>
+        </div>
+
     </form>
+
 </x-guest-layout>

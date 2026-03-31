@@ -152,3 +152,20 @@ function formatDate(date) {
     const d = String(date.getDate()).padStart(2, "0");
     return `${y}-${m}-${d}`;
 }
+
+// ===== AUTH — PASSWORD TOGGLE =====
+document.querySelectorAll('.auth-toggle-password').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const input = this.parentElement.querySelector('input');
+        const icon  = this.querySelector('i');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    });
+});

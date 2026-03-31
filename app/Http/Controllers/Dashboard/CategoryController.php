@@ -94,9 +94,9 @@ class CategoryController extends Controller
             abort(403, 'Unauthorized');
         }
 
-        // if ($category->transactions()->count() > 0) {
-        //     return redirect()->route('categories.index')->with('error', 'Cannot delete category with transactions!');
-        // }
+        if ($category->transactions()->count() > 0) {
+            return redirect()->route('categories.index')->with('error', 'Cannot delete category with existing transactions!');
+        }
 
         $category->delete();
 
