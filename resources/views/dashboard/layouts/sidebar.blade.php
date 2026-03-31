@@ -39,6 +39,11 @@
             <span class="nav-text">Export</span>
         </a>
 
+         <a href="{{ route('budgets.index') }}" class="nav-link {{ request()->routeIs('budgets.*') ? 'active' : '' }}">
+            <i class="fas fa-piggy-bank nav-icon"></i>
+            <span class="nav-text">Budgets</span>
+        </a>
+
         @if (auth()->check() && auth()->user()->hasAnyRole('admin'))
             <a href="{{ route('admin.index') }}" class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }}">
                 <i class="fas fa-shield nav-icon"></i>

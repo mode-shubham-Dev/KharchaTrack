@@ -40,4 +40,9 @@ class Category extends Model
     {
         return $query->where('type', 'expence');
     }
+
+    public function budgets()
+    {
+        return $this->hasMany(Budget::class);
+    }
 }

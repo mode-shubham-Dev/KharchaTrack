@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Admin\AdminController;
+use App\Http\Controllers\Dashboard\BudgetController;
 use App\Http\Controllers\Dashboard\ExportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -19,6 +20,10 @@ Route::middleware(['auth', 'verified', 'check.active'])->group(function () {
 
     Route::resource('categories', CategoryController::class);
     Route::resource('transactions', TransactionController::class);
+
+    Route::get('/budgets', [BudgetController::class, 'index'])->name('budgets.index');
+    Route::post('/budgets', [BudgetController::class, 'store'])->name('budgets.store');
+    Route::delete('/budgets/{budget}', [BudgetController::class, 'destroy'])->name('budgets.destroy');
 
     Route::get('/export', [ExportController::class, 'index'])
         ->name('export.index');
