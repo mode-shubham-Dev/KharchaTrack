@@ -5,6 +5,11 @@
 @section('content')
 
     {{-- ===== SUMMARY CARDS ===== --}}
+    {{--
+    Data from DashboardController:
+    $totalIncome, $totalExpense, $netBalance, $totalTransactions
+    number_format() formats money with commas and 2 decimals
+    --}}
     <div class="summary-cards">
 
         <div class="summary-card income">
@@ -58,104 +63,158 @@
     </div>
 
     {{-- ===== CHARTS SECTION ===== --}}
-    <div class="charts-section">
-
-        {{-- Pie Chart --}}
-        <div class="chart-placeholder">
-            <h3 class="chart-title">
-                <i class="fas fa-chart-pie"></i>
-                Spending by Category
-            </h3>
-            <canvas id="pieChart"></canvas>
-        </div>
-
-        {{-- Bar Chart --}}
-        <div class="chart-placeholder">
-            <h3 class="chart-title">
-                <i class="fas fa-chart-bar"></i>
-                Monthly Overview
-            </h3>
-            <canvas id="barChart"></canvas>
-        </div>
-
-    </div>
-
-    {{-- ===== RECENT TRANSACTIONS ===== --}}
-    <div class="transactions-section">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h2 class="section-title" style="margin:0;">Recent Transactions</h2>
-            <a href="{{ route('transactions.index') }}" style="color:#6366f1; font-size:13px; font-weight:600;">
-                View All →
-            </a>
-        </div>
-
-        <div class="table-container">
-            <table class="transactions-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Category</th>
-                        <th>Note</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($recentTransactions as $transaction)
-                        <tr>
-                            <td>{{ $transaction->date->format('d M Y') }}</td>
-                            <td>
-                                <span class="category-badge">
-                                    <span class="category-dot" style="background-color: {{ $transaction->category->color }}">
-                                    </span>
-                                    {{ $transaction->category->name }}
-                                </span>
-                            </td>
-                            <td>{{ $transaction->note ?? '—' }}</td>
-                            <td>
-                                <span class="type-badge {{ $transaction->type }}">
-                                    {{ ucfirst($transaction->type) }}
-                                </span>
-                            </td>
-                            <td>
-                                <span class="amount {{ $transaction->type }}">
-                                    {{ $transaction->type == 'income' ? '+' : '-' }}
-                                    NPR {{ number_format($transaction->amount, 2) }}
-                                </span>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5">
-                                <div class="empty-state">
-                                    <i class="fas fa-inbox"></i>
-                                    <p>No transactions yet</p>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    @push('scripts')
-        {{--
-        WHY window.spendingData and window.monthlyData?
-
-        charts.js is an external file — it cannot directly
-        access PHP variables. So we inject PHP data into
-        global window object here in Blade.
-
-        Then charts.js reads from window object.
-
-        This is the standard pattern for passing
-        PHP data to external JS files.
+    {{--
+    Chart.js renders inside <canvas> tags
+        Data passed via window object in @push('scripts')
+        charts.js reads window.spendingData and window.monthlyData
         --}}
-        <script>
-            window.spendingData = @json($spendingByCategory);
-            window.monthlyData = @json($last6Months);
-        </script>
-    @endpush
+        <div class="charts-section">
+
+            <div class="chart-placeholder">
+                <h3 class="chart-title">
+                    <i class="fas fa-chart-pie"></i>
+                    Spending by Category
+                </h3>
+                <canvas id="pieChart"></canvas>
+            </div>
+
+            <div class="chart-placeholder">
+                <h3 class="chart-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Monthly Overview
+                </h3>
+                <canvas id="barChart"></canvas>
+            </div>
+
+        </div>
+
+        {{-- ===== SMART INSIGHTS ===== --}}
+        {{--
+        $insights is an array of insight objects
+        Each has: type, icon, message
+        Generated by generateInsights() in DashboardController
+
+        type → controls CSS class → controls color:
+        success → green
+        warning → yellow
+        danger → red
+        info → blue
+        --}}
+        <div class="insights-section">
+
+            <div class="insights-title">
+                <i class="fas fa-lightbulb"></i>
+                Smart Insights — {{ now()->format('F Y') }}
+            </div>
+
+            <div class="insights-list">
+                @foreach($insights as $insight)
+                    {{--
+                    Dynamic class — e.g. "insight-item success"
+                    Dynamic icon — Font Awesome class from array
+                    Dynamic message — insight text
+                    --}}
+                    <div class="insight-item {{ $insight['type'] }}">
+                        <i class="{{ $insight['icon'] }} insight-icon"></i>
+                        <span>{{ $insight['message'] }}</span>
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
+
+        {{-- ===== RECENT TRANSACTIONS ===== --}}
+        {{--
+        $recentTransactions — last 5 transactions
+        limit(5) in controller — just a preview
+        "View All" links to full transactions page
+        --}}
+        <div class="transactions-section">
+
+            <div style="display:flex; justify-content:space-between;
+                        align-items:center; margin-bottom:20px;">
+                <h2 class="section-title" style="margin:0;">
+                    Recent Transactions
+                </h2>
+                <a href="{{ route('transactions.index') }}" style="color:#6366f1; font-size:13px; font-weight:600;
+                            text-decoration:none;">
+                    View All →
+                </a>
+            </div>
+
+            <div class="table-container">
+                <table class="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Note</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($recentTransactions as $transaction)
+                            <tr>
+                                {{-- Date --}}
+                                <td>
+                                    {{ $transaction->date->format('d M Y') }}
+                                </td>
+
+                                {{-- Category with color dot --}}
+                                <td>
+                                    <span class="category-badge">
+                                        <span class="category-dot" style="background-color:{{ $transaction->category->color }}">
+                                        </span>
+                                        {{ $transaction->category->name }}
+                                    </span>
+                                </td>
+
+                                {{-- Note — show dash if empty --}}
+                                <td>{{ $transaction->note ?? '—' }}</td>
+
+                                {{-- Type badge — income or expense --}}
+                                <td>
+                                    <span class="type-badge {{ $transaction->type }}">
+                                        {{ ucfirst($transaction->type) }}
+                                    </span>
+                                </td>
+
+                                {{-- Amount — green + for income, red - for expense --}}
+                                <td>
+                                    <span class="amount {{ $transaction->type }}">
+                                        {{ $transaction->type == 'income' ? '+' : '-' }}
+                                        NPR {{ number_format($transaction->amount, 2) }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5">
+                                    <div class="empty-state">
+                                        <i class="fas fa-inbox"></i>
+                                        <p>No transactions yet</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        @push('scripts')
+            {{--
+            Pass PHP data to charts.js via window object
+            @json() converts PHP collection to JS array
+            charts.js reads window.spendingData and window.monthlyData
+            This runs AFTER charts.js loads — correct order
+            --}}
+            <script>
+                window.spendingData = @json($spendingByCategory);
+                window.monthlyData = @json($last6Months);
+            </script>
+        @endpush
 
 @endsection
