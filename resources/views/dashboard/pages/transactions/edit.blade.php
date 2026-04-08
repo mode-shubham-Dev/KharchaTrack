@@ -24,17 +24,11 @@
             <div class="form-group">
                 <label>Type *</label>
                 <div class="type-toggle">
-
-                    <input type="radio"
-                        name="type"
-                        value="income"
+                    <input type="radio" name="type" value="income"
                         id="typeIncome"
                         {{ old('type', $transaction->type) == 'income' ? 'checked' : '' }}
                         style="display:none;">
-
-                    <input type="radio"
-                        name="type"
-                        value="expense"
+                    <input type="radio" name="type" value="expense"
                         id="typeExpense"
                         {{ old('type', $transaction->type) == 'expense' ? 'checked' : '' }}
                         style="display:none;">
@@ -58,14 +52,13 @@
                         ">
                         <i class="fas fa-arrow-up"></i> Expense
                     </div>
-
                 </div>
                 @error('type')
                     <span class="error-text">{{ $message }}</span>
                 @enderror
             </div>
 
-            {{-- Category --}}
+            {{-- CATEGORY --}}
             <div class="form-group">
                 <label for="category_id">Category *</label>
                 <select id="category_id" name="category_id">
@@ -82,7 +75,7 @@
                 @enderror
             </div>
 
-            {{-- Amount --}}
+            {{-- AMOUNT --}}
             <div class="form-group">
                 <label for="amount">Amount *</label>
                 <div class="amount-input-group">
@@ -101,7 +94,7 @@
                 @enderror
             </div>
 
-            {{-- Date --}}
+            {{-- DATE --}}
             <div class="form-group">
                 <label for="date">Date *</label>
                 <input
@@ -114,7 +107,29 @@
                 @enderror
             </div>
 
-            {{-- Note --}}
+            {{-- ===== PAYMENT METHOD ===== --}}
+            {{--
+                old('payment_method', $transaction->payment_method)
+                First checks if old input exists (validation fail)
+                Falls back to existing transaction payment method
+                So edit form always shows current value selected
+            --}}
+            <div class="form-group">
+                <label for="payment_method">Payment Method *</label>
+                <select id="payment_method" name="payment_method">
+                    @foreach($paymentMethods as $value => $label)
+                        <option value="{{ $value }}"
+                            {{ old('payment_method', $transaction->payment_method) == $value ? 'selected' : '' }}>
+                            {{ $label }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('payment_method')
+                    <span class="error-text">{{ $message }}</span>
+                @enderror
+            </div>
+
+            {{-- NOTE --}}
             <div class="form-group">
                 <label for="note">Note (Optional)</label>
                 <textarea
@@ -147,7 +162,8 @@
         <p style="color:#7f1d1d; font-size:13px; margin-bottom:16px;">
             Once you delete this transaction there is no going back.
         </p>
-        <form action="{{ route('transactions.destroy', $transaction) }}"
+        <form
+            action="{{ route('transactions.destroy', $transaction) }}"
             method="POST"
             onsubmit="return confirm('Are you sure you want to delete this transaction?')">
             @csrf

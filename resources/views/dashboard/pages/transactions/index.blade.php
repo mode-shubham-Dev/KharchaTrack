@@ -79,6 +79,7 @@
                             <th>Date</th>
                             <th>Category</th>
                             <th>Note</th>
+                            <th>Payment</th>
                             <th>Type</th>
                             <th>Amount</th>
                             <th>Actions</th>
@@ -87,31 +88,52 @@
                     <tbody>
                         @forelse($transactions as $transaction)
                             <tr>
-                                <td>
-                                    {{ $transaction->date->format('d M Y') }}
-                                </td>
+
+                                {{-- Date --}}
+                                <td>{{ $transaction->date->format('d M Y') }}</td>
+
+                                {{-- Category --}}
                                 <td>
                                     <span class="category-badge">
-                                        <span class="category-dot"
-                                            style="background-color: {{ $transaction->category->color }}">
+                                        <span class="category-dot" style="background-color:{{ $transaction->category->color }}">
                                         </span>
                                         {{ $transaction->category->name }}
                                     </span>
                                 </td>
+
+                                {{-- Note --}}
+                                <td>{{ $transaction->note ?? '—' }}</td>
+
+                                {{-- ===== PAYMENT METHOD ===== --}}
+                                {{--
+                                $transaction->payment_method_label
+                                Uses accessor from Transaction model
+                                'esewa' → '📱 eSewa'
+                                'cash' → '💵 Cash'
+                                Shows emoji + label — clean and readable
+                                --}}
                                 <td>
-                                    {{ $transaction->note ?? '—' }}
+                                    <span class="payment-badge payment-{{ $transaction->payment_method }}">
+                                        {{ $transaction->payment_method_label }}
+                                    </span>
                                 </td>
+
+                                {{-- Type --}}
                                 <td>
                                     <span class="type-badge {{ $transaction->type }}">
                                         {{ ucfirst($transaction->type) }}
                                     </span>
                                 </td>
+
+                                {{-- Amount --}}
                                 <td>
                                     <span class="amount {{ $transaction->type }}">
                                         {{ $transaction->type == 'income' ? '+' : '-' }}
                                         NPR {{ number_format($transaction->amount, 2) }}
                                     </span>
                                 </td>
+
+                                {{-- Actions --}}
                                 <td class="actions">
                                     <a href="{{ route('transactions.edit', $transaction) }}" class="btn-icon">
                                         <i class="fas fa-edit"></i>
@@ -125,10 +147,11 @@
                                         </button>
                                     </form>
                                 </td>
+
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6">
+                                <td colspan="7">
                                     <div class="empty-state">
                                         <i class="fas fa-inbox"></i>
                                         <p>No transactions yet. Add your first transaction!</p>
@@ -146,6 +169,7 @@
             </div>
 
         </div>
+
     </div>
 
 @endsection

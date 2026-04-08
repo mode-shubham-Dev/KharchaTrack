@@ -18,6 +18,7 @@ class StoreTransactionRequest extends FormRequest
             'type'        => 'required|in:income,expense',
             'amount'      => 'required|numeric|min:1',
             'note'        => 'nullable|string|max:255',
+            'payment_method' => 'nullable|in:cash,esewa,khalti,bank_transfer,connectips,atm',
             'date'        => 'required|date',
         ];
     }

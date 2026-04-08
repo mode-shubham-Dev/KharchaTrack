@@ -16,6 +16,7 @@ class Transaction extends Model
         'type',
         'amount',
         'note',
+        'payment_method',
         'date',
     ];
 
@@ -23,6 +24,20 @@ class Transaction extends Model
         'date'   => 'date',
         'amount' => 'decimal:2',
     ];
+
+    const PAYMENT_METHODS = [
+        'cash'          => '💵 Cash',
+        'esewa'         => '📱 eSewa',
+        'khalti'        => '📱 Khalti',
+        'bank_transfer' => '🏦 Bank Transfer',
+        'connectips'    => '💳 ConnectIPS',
+        'atm'           => '🏧 ATM Withdrawal',
+    ];
+
+    public function getPaymentMethodLabelAttribute(): string
+    {
+        return self::PAYMENT_METHODS[$this->payment_method] ?? '💵 Cash';
+    }
 
     public function user()
     {

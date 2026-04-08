@@ -91,7 +91,9 @@ class TransactionController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('dashboard.pages.transactions.create', compact('categories'));
+        $paymentMethods = Transaction::PAYMENT_METHODS;
+
+        return view('dashboard.pages.transactions.create', compact('categories', 'paymentMethods'));
     }
 
     public function store(StoreTransactionRequest $request)
@@ -104,6 +106,7 @@ class TransactionController extends Controller
             'type'        => $validated['type'],
             'amount'      => $validated['amount'],
             'note'        => $validated['note'] ?? null,
+            'payment_method' => $validated['payment_method'] ?? 'cash',
             'date'        => $validated['date'],
         ]);
 
@@ -127,8 +130,10 @@ class TransactionController extends Controller
             ->orderBy('name')
             ->get();
 
+        $paymentMethods = Transaction::PAYMENT_METHODS;
+
         return view('dashboard.pages.transactions.edit',
-            compact('transaction', 'categories')
+            compact('transaction', 'categories', 'paymentMethods')
         );
     }
 
